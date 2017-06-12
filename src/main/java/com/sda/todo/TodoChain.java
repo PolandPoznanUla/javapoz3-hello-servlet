@@ -1,5 +1,7 @@
 package com.sda.todo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,13 +20,13 @@ public class TodoChain {
         init();
     }
 
-    public String invoke(String path) {
+    public String invoke(HttpServletRequest req, HttpServletResponse resp) {
         Iterator<TodoChainElement> iterator = chainElements.iterator();
         TodoChainElement finalElement = null;
         boolean flag = false;
         while (!flag && iterator.hasNext()) {
             TodoChainElement next = iterator.next();
-            if (next.isMyResponsibility(path)) {
+            if (next.isMyResponsibility(req.getPathInfo())) {
                 finalElement = next;
                 flag = true;
             }
@@ -34,7 +36,7 @@ public class TodoChain {
 //            result = finalElement.action();
 //        }
 //        return result;
-        return finalElement != null ? finalElement.action() : "<h1>Cannot find page</h1>";
+        return finalElement != null ? finalElement.action(req, resp) : "<h1>Cannot find page</h1>";
     }
 
     private void init() {
