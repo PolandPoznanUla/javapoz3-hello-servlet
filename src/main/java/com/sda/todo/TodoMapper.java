@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by RENT on 2017-06-12.
@@ -19,6 +20,25 @@ public class TodoMapper {
         todoModel.setPriority(getPriority(map));
         todoModel.setDate(getDate(map));
         return todoModel;
+    }
+
+    public static TodoModel map(Scanner scanner) {
+        return map(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
+    }
+
+    public static  TodoModel map(String title, String description, String status, String priority, String date) {
+
+        TodoModel todoModel = new TodoModel();
+        todoModel.setName(title);
+        todoModel.setDescription(description);
+//        todoModel.setChecked("true".equals(status));
+        todoModel.setChecked(new Boolean(status));
+//        todoModel.setChecked(Boolean.valueOf(status));
+        todoModel.setPriority(Integer.parseInt(priority));
+//        todoModel.setPriority(new Integer(priority));
+        todoModel.setDate(LocalDate.parse(date));
+        return todoModel;
+
     }
 
     private static LocalDate getDate(Map<String, String[]> map) {

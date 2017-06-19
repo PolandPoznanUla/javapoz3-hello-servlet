@@ -41,6 +41,7 @@ public class TodoChain {
 
     private void init() {
         chainElements.add(new AllTodoChainElement("/all", todoDao, todoView));
+
         chainElements.add(new AddTodoChainElement("/add", todoDao, todoView));
     }
 }
