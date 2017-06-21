@@ -36,6 +36,45 @@ public class Board {
         return valueToReturn;
     }
 
+    public boolean isGameFinished(String[] array) {
+//        boolean valueToReturn = false;
+//        if () {
+//
+//            valueToReturn = true;
+//        }
+//        return valueToReturn;
+        return true;
+    }
+
+    private boolean isFulfilled() {
+
+        return  true;
+    }
+
+    private boolean areValuesEquals(int i, int j, int k) {
+        return array[i] != null && array[i].equals(array[j]) && array[i].equals(array[k]);
+    }
+
+    private boolean checkRows() {
+        boolean flag = false;
+        int i = 0;
+        do {
+            flag = areValuesEquals(i, i + 1, i + 2);
+            i += 3;
+        } while (i < 9 &&!flag);
+        return  flag;
+    }
+
+    private boolean checkColumns() {
+
+        return  true;
+    }
+
+    private boolean checkDiagonals() {
+
+        return  true;
+    }
+
     private boolean isRangeValid(int position) {
         return (position > 0 && position < 10);
     }
@@ -43,12 +82,6 @@ public class Board {
     private boolean isPositionEmpty(int position) {
         return array[position - 1] == null;
     }
-
-
-//    public void showBoard(String[] array) {
-//        System.out.println("");
-//    }
-
 
     @Override
     public String toString() {

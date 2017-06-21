@@ -20,7 +20,6 @@ public class Client {
             writer.write(scannerToUser.nextLine() + "\n");
             writer.flush();
             System.out.println(scanner.nextLine());
-
         }
         socket.close();
     }
