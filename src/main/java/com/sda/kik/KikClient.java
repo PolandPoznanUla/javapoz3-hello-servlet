@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class KikClient {
     public static void main(String[] args) throws IOException {
 
-        Socket socket = new Socket("192.168.100.109", 1234);
+        Socket socket = new Socket("localhost", 1234);
 
         Scanner scannerToUser = new Scanner(System.in);
 
