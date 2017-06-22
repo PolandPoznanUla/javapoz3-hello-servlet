@@ -30,24 +30,37 @@ public class KikServer {
         Scanner socketIn = new Scanner(socket.getInputStream());
 
         Board board = new Board();
-        boolean status;
         boolean flag = true;
+
         while (flag) {
-            System.out.println(board.toString());
-            do {
-                System.out.println("Insert position: ");
-                String number = scanner.nextLine();
-                status = board.addMove(Integer.valueOf(number), "X");
-                if (status) {
-                    socketOut.write(number + "\n");
-                    socketOut.flush();
-                } else {
-                    System.out.println("Invalid position, try again");
-                }
-            } while (!status);
-                String opponentPosition = socketIn.nextLine();
-                board.addMove(Integer.valueOf(opponentPosition), "O");
+            if (board.getCounter() % 2 == 0) {
+                yourTurn(scanner, socketOut, board);
+            } else {
+                opponentsTurn(socketIn, board);
+            }
             }
         }
+
+    private static void opponentsTurn(Scanner socketIn, Board board) {
+        String opponentPosition = socketIn.nextLine();
+        board.addMove(Integer.valueOf(opponentPosition), "O");
+        System.out.println(board);
     }
+
+    private static void yourTurn(Scanner scanner, BufferedWriter socketOut, Board board) throws IOException {
+        boolean status;
+        System.out.println(board.toString());
+        do {
+            System.out.println("Insert position: ");
+            String number = scanner.nextLine();
+            status = board.addMove(Integer.valueOf(number), "X");
+            if (status) {
+                socketOut.write(number + "\n");
+                socketOut.flush();
+            } else {
+                System.out.println("Invalid position, try again");
+            }
+        } while (!status);
+    }
+}
 

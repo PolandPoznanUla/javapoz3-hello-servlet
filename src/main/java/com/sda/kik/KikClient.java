@@ -9,6 +9,10 @@ import java.util.Scanner;
 /**
  * Created by RENT on 2017-06-20.
  */
+
+//  zd dom stworzyc boardUtils i wyciagnac powtarzalny kod z klienta i servera
+//   wyszlifować do repo
+
 public class KikClient {
     public static void main(String[] args) throws IOException {
 
@@ -20,35 +24,43 @@ public class KikClient {
         BufferedWriter socketOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
         Board board = new Board();
-        boolean flag = true;
         System.out.println("Waiting for first move: ");
-        while (flag) {
-            String opponentPosition = socketIn.nextLine();
-            Integer position = Integer.valueOf(opponentPosition);
+        while (!board.isGameFinished()) {
+            if (board.getCounter() % 2 == 0) {
+                opponentsTurn(socketIn, board);
+            } else {
+                yourTurn(scannerToUser, socketOut, board);
 
-                board.addMove(position, "X");
-
-                System.out.println(board);
-                System.out.println("Insert position :");
-
-                boolean status;
-                do {
-                    String ourPosition = scannerToUser.nextLine();
-                    Integer ourPositionNumber = Integer.valueOf(ourPosition);
-                    status = board.addMove(ourPositionNumber, "O");
-                    if(status) {
-                        socketOut.write(ourPositionNumber + "\n");
-                        socketOut.flush();
-                    } else {
-                        System.out.println("Invalid position");
-                        System.out.println("Try again");
-                    }
-                } while (!status);
 //                board.addMove(ourPositionNumber, "O");
 //                socketOut.write(ourPositionNumber + "\n");
 //                socketOut.flush();
-
+            }
         }
+    }
 
+    private static void yourTurn(Scanner scannerToUser, BufferedWriter socketOut, Board board) throws IOException {
+        boolean status;
+        do {
+            System.out.println("Insert position :");
+            String ourPosition = scannerToUser.nextLine();
+            Integer ourPositionNumber = Integer.valueOf(ourPosition);
+            status = board.addMove(ourPositionNumber, "O");
+            if(status) {
+                socketOut.write(ourPositionNumber + "\n");
+                socketOut.flush();
+            } else {
+                System.out.println("Invalid position");
+                System.out.println("Try again");
+            }
+        } while (!status);
+    }
+
+    private static void opponentsTurn(Scanner socketIn, Board board) {
+        String opponentPosition = socketIn.nextLine();
+        Integer position = Integer.valueOf(opponentPosition);
+
+        board.addMove(position, "X");
+
+        System.out.println(board);
     }
 }
