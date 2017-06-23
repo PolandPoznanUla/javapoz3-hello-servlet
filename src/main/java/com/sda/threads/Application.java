@@ -5,11 +5,14 @@ package com.sda.threads;
 /**
  * Created by RENT on 2017-06-22.
  */
+
 public class Application {
     public static void main(String[] args) {
-        MyTask myTask = new MyTask("one");
-        MyTask myTask2 = new MyTask("two");
-        MyTask myTask3 = new MyTask("three");
+
+        Runnable myTask = new MyTask("one");
+        Runnable myTask2 = new MyTask("two");
+        Runnable myTask3 = new MyTask("three");
+
 
         Thread thread = new Thread(myTask);
         Thread thread2 = new Thread(myTask2);

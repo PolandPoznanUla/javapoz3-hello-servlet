@@ -15,6 +15,16 @@ public class SumTask implements Runnable {
 
     @Override
     public void run() {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        list.stream()
+//                .collect(e -> e)
+        int sum = list.stream().mapToInt(e -> e).sum();
+        System.out.println(sum);
 //        long first = System.currentTimeMillis();
 //        for (int i = 0; i < list.size(); i++) {
 
