@@ -24,10 +24,11 @@ public class SumTask implements Runnable {
 //        list.stream()
 //                .collect(e -> e)
         int sum = list.stream().mapToInt(e -> e).sum();
-        System.out.println(sum);
+        Summer.getInstance().add(sum);
 //        long first = System.currentTimeMillis();
 //        for (int i = 0; i < list.size(); i++) {
 
+        Summer.getInstance().test();
         }
     }
 
