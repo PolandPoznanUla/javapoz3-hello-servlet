@@ -87,6 +87,13 @@ public class Board {
         return array[position - 1] == null;
     }
 
+    public void resetBoard() {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = null;
+        }
+        counter = 0;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
